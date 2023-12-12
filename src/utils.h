@@ -23,4 +23,13 @@
 int validate_b32key(char *k, size_t len);
 size_t decode_b32key(uint8_t **k, size_t len);
 
+#define stderr_printf(...) fprintf(stderr, __VA_ARGS__)
+#define do_if(cond, action) do {					\
+	if (cond) {							\
+		action							\
+	}								\
+} while (0)
+#define check(cond, ...) \
+	do_if(!(cond), stderr_printf(__VA_ARGS__); exit(-1);)
+
 #endif
