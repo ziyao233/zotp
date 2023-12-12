@@ -8,7 +8,7 @@ OBJECTS=*.o
 TNAME=c_otp
 # compiler
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -Werror -pedantic -Wextra
 DEBUG=
 WARNFLAGS=-Wsign-compare -Wint-conversion -fno-stack-protector
 LDLIBS+=-lm -lcrypto
