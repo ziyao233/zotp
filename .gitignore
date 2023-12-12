@@ -1,6 +1,6 @@
-bin/*
 *.todo
 *.o
 *.vim
 *.SRCINFO
+zotp
 checkpatch.pl
