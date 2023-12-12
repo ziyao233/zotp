@@ -1,5 +1,5 @@
 ifeq ($(DEBUG),1)
-	DEBUG_FLAGS	:= -DDEBUG -O0 -g
+	DEBUG_FLAGS	:= -O0 -g
 else
 	DEBUG_FLAGS	:= -O2
 endif
@@ -21,7 +21,6 @@ endif
 default: $(OUTPUT_EXEC)
 
 $(OUTPUT_EXEC): $(OBJS)
-	@echo Building $(OUTPUT_EXEC)
 	$(CC) -o $(OUTPUT_EXEC) $(OBJS) $(LDFLAGS)
 
 clean:

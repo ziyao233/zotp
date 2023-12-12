@@ -41,36 +41,39 @@ static const int8_t base32_vals[256] = {
 
 
 int
-validate_b32key(char *k, size_t len, size_t pos)
+validate_b32key(char *k, size_t len)
 {
+	// validates base32 key
+	if (((len & 0xF) != 0) && ((len & 0xF) != 8))
+		return -1;
+	for (size_t pos = 0; (pos < len); pos++) {
+		if (base32_vals[(int)k[pos]] == -1)
+			return -1;
 
-    // validates base32 key
-    if (((len & 0xF) != 0) && ((len & 0xF) != 8))
-        return 1;
-    for (pos = 0; (pos < len); pos++) {
-        if (base32_vals[k[pos]] == -1)
-            return 1;
-        if (k[pos] == '=') {
-            if (((pos & 0xF) == 0) || ((pos & 0xF) == 8))
-                return(1);
-            if ((len - pos) > 6)
-                return 1;
-            switch (pos % 8) {
-            case 2:
-            case 4:
-            case 5:
-            case 7:
-                break;
-            default:
-                return 1;
-            }
-            for ( ; (pos < len); pos++) {
-                if (k[pos] != '=')
-                    return 1;
-            }
-        }
-    }
-    return 0;
+		if (k[pos] == '=') {
+			if (((pos & 0xF) == 0) || ((pos & 0xF) == 8))
+				return -1;
+
+			if ((len - pos) > 6)
+				return -1;
+
+			switch (pos % 8) {
+			case 2:
+			case 4:
+			case 5:
+			case 7:
+				break;
+			default:
+				return -1;
+			}
+
+			for ( ; (pos < len); pos++) {
+				if (k[pos] != '=')
+					return -1;
+			}
+		}
+	}
+	return 0;
 }
 
 

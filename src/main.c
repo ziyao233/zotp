@@ -42,13 +42,10 @@ usage(char *arg)
 int
 main(int argc, char *argv[])
 {
-	size_t pos;
 	size_t len;
 	size_t keylen;
 	uint8_t *k;
-	char *fname = NULL;
-	char *key;
-	int mode = 0;
+	char *key = NULL;
 	int opt;
 	uint32_t result;
 
@@ -58,13 +55,10 @@ main(int argc, char *argv[])
 	}
 
 	/* Processing cli parameters and make a few checks on the input */
-	while ((opt = getopt(argc, argv, "b:f:m:vs")) != -1) {
+	while ((opt = getopt(argc, argv, "b:v")) != -1) {
 		switch(opt) {
 		case 'b':
 			key = optarg;
-			break;
-		case 'f':
-			fname = optarg;
 			break;
 		case 'v':
 			printf("%s %.1f\n", argv[0], VERSION);
@@ -76,10 +70,11 @@ main(int argc, char *argv[])
 	}
 
 	len = strlen(key);
-	if (validate_b32key(key, len, pos) == 1) {
+	if (validate_b32key(key, len)) {
 		fprintf(stderr, "%s: invalid base32 secret\n", key);
 		return -1;
 	}
+
 	k = (uint8_t *)key;
 	keylen = decode_b32key(&k, len);
 	result = totp(k, keylen);
