@@ -1,0 +1,44 @@
+--------------------------------------------------------------------------------
+
+			Ziyao's TOTP Token Generator
+
+--------------------------------------------------------------------------------
+
+= Introduction
+
+This is a pure-C TOTP token generator modified from fmount's c_otp.
+
+= Build
+
+You need
+
+ o A C99-compatible compiler
+ o GNU Make
+
+to build this program.
+
+Running
+
+	make
+
+in the top directory of the repository does the build.
+
+= Usage
+
+	zotp <OPTIONS>
+
+== OPTIONS
+
+ o -h: Print the help
+ o -k <secret>: Use <secret> to generate a TOTP token. ***THIS IS NOT DANGEROUS
+   AS THE SECRET MAY BE STORED IN YOUR COMMAND HISTORY.***
+ o -f <secret>: Load secret from <file> then generate a TOTP token. Use - for
+   file to make zotp read secret from stdin.
+ o -v: Print Git hash
+
+= LICENSE
+
+This program is distributed under MIT License.
+
+Copyright (c) 2023-2024 Yao Zi <ziyao@disroot.org>
+Copyright (c) 2017 fmount <fmount9@autistici.org>
