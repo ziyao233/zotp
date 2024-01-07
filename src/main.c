@@ -40,9 +40,18 @@ totp(uint8_t *k, size_t keylen)
 }
 
 static void
-usage(char *arg)
+usage(void)
 {
-    fprintf(stderr, "Usage %s [-f fname] | [-b b32_secretkey] | [-m mode] [-s] | [-v]\n", arg);
+	puts("zotp: Ziyao's TOTP Token Generator");
+	puts("Generate TOTP token from secret key and local time\n");
+	puts("Usage:");
+	puts("\tzotp <OPTIONS\n");
+	puts("Options:");
+	puts("\t-k\t\tTOTP secret");
+	puts("\t-f <file>\tLoad TOTP from <file> (- for stdin)");
+	puts("\t-v\t\tPrint zotp version based on git hash");
+	puts("\t-h\t\tPrint this help");
+	return;
 }
 
 static char *
@@ -103,8 +112,11 @@ main(int argc, char *argv[])
 		case 'v':
 			printf("%s\n", GIT_HASH_VERSION);
 			return 0;
+		case 'h':
+			usage();
+			return 0;
 		default:
-			usage(argv[0]);
+			usage();
 			return -1;
 		}
 	}
