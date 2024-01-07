@@ -1,5 +1,6 @@
 /***
  *  TOTP: Time-Based One-Time Password Algorithm
+ *  Copyright (c) 2023-2024 Yao Zi <ziyao@disroot.org>
  *  Copyright (c) 2017, fmount <fmount9@autistici.org>
  *
  *  Test Vector is composed by:
@@ -19,11 +20,16 @@
 #include "rfc6238.h"
 #include "utils.h"
 
+#ifndef GIT_HASH
+	#define GIT_HASH_VERSION "(No Git Version)"
+#else
+	#define GIT_HASH_VERSION GIT_HASH
+#endif
+
 #define T0 0
 #define DIGITS 6
 #define VALIDITY 30
 #define TIME 2
-#define VERSION 1.0
 
 static uint32_t
 totp(uint8_t *k, size_t keylen)
@@ -95,7 +101,7 @@ main(int argc, char *argv[])
 			key = load_key_from_file(optarg);
 			break;
 		case 'v':
-			printf("%s %.1f\n", argv[0], VERSION);
+			printf("%s\n", GIT_HASH_VERSION);
 			return 0;
 		default:
 			usage(argv[0]);
